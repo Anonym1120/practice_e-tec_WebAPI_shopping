@@ -5,10 +5,14 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
+using prjWebAPI.Models; // Entity Framework
+
 namespace prjWebAPI.Controllers
 {
     public class ValuesController : ApiController
     {
+        dbmyDBEntities db = new dbmyDBEntities();
+
         // GET api/values
         public IEnumerable<string> Get()
         {
