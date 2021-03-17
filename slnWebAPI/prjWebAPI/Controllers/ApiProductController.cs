@@ -21,7 +21,7 @@ namespace prjWebAPI.Controllers
         }
 
         // GET: api/ApiProduct/5
-        public tProduct Get(int id)
+        public tProduct Get(int id) //fId 查詢
         {
             var product = db.tProduct
                 .Where(m => m.fId == id)
@@ -31,7 +31,7 @@ namespace prjWebAPI.Controllers
         }
 
         [HttpPost]
-        public int Post(tProduct p) 
+        public int Post(tProduct p) //新增
         {
             int n = 0;
 
@@ -55,15 +55,49 @@ namespace prjWebAPI.Controllers
         }
         
         // PUT: api/ApiProduct/5
-        public void Put(int id, [FromBody]string value)
+        public int Put(tProduct p) //fId 修改
         {
+            int n = 0;
+            try
+            {
+                var product = db.tProduct
+                .Where(m => m.fId == p.fId)
+                .FirstOrDefault();
 
+                product.fPId = p.fPId;
+                product.fName = p.fName;
+                product.fPrice = p.fPrice;
+
+                n = db.SaveChanges();
+            }
+            catch 
+            {
+                n = 0;
+            }
+
+            return n;
         }
 
         // DELETE: api/ApiProduct/5
-        public void Delete(int id)
+        public int Delete(int id) // fId 刪除
         {
+            int n = 0;
 
+            try
+            {
+                var product = db.tProduct
+                    .Where(m => m.fId == id)
+                    .FirstOrDefault();
+
+                db.tProduct.Remove(product);
+                n = db.SaveChanges();
+            }
+            catch 
+            {
+                n = 0;
+            }
+
+            return n;
         }
     }
 }
