@@ -21,13 +21,24 @@ namespace prjWebAPI.Controllers
         }
 
         // GET: api/ApiProduct/5
-        public tProduct Get(int id) //fId 查詢
+        public IEnumerable<CProduct> Get(string fPId) //fPId 查詢
         {
-            var product = db.tProduct
-                .Where(m => m.fId == id)
-                .FirstOrDefault();
+            var product = from p in db.tProduct
+                          select p;
 
-            return product;
+            if (!string.IsNullOrEmpty(fPId))
+            {
+                product = product
+                    .Where(p => p.fPId.Contains(fPId));
+            }
+
+            List<CProduct> CProductList = new List<CProduct>();
+            foreach (tProduct p in product) 
+            {
+                CProductList.Add(new CProduct(p));
+            }
+
+            return CProductList;
         }
 
         [HttpPost]
