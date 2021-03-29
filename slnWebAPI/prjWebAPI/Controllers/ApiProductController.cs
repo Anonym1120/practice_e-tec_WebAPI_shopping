@@ -78,6 +78,7 @@ namespace prjWebAPI.Controllers
                 product.fPId = p.fPId;
                 product.fName = p.fName;
                 product.fPrice = p.fPrice;
+                product.fIsApproved = p.fIsApproved;
 
                 n = db.SaveChanges();
             }

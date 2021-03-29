@@ -20,24 +20,24 @@ namespace prjWebAPI.Controllers
         }
 
         // GET: api/ApiOrder/5
-        public IEnumerable<COrder> Get(string fOrderId)
+        public IEnumerable<COrderDetail> Get(string fOrderId)
         {
-            var order = from o in db.tOrder
+            var orderDetail = from o in db.tOrderDetail
                         select o;
 
             if (!string.IsNullOrEmpty(fOrderId)) 
             {
-                order = order
+                orderDetail = orderDetail
                     .Where(o => o.fOrderId.Contains(fOrderId));
             }
 
-            List<COrder> orderList = new List<COrder>();
-            foreach (tOrder o in order) 
+            List<COrderDetail> orderDetailList = new List<COrderDetail>();
+            foreach (tOrderDetail o in orderDetail) 
             {
-                orderList.Add(new COrder(o));
+                orderDetailList.Add(new COrderDetail(o));
             }
 
-            return orderList;
+            return orderDetailList;
         }
 
         // POST: api/ApiOrder
